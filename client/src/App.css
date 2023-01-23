@@ -1,0 +1,32 @@
+.app {
+  background: #FFFFFF;
+  margin: auto;
+  width: 50%;
+
+  padding: 10px;
+}
+
+.todo-list {
+  background: #DCDCDC;
+  border-radius: 4px;
+  max-width: 400px;
+  padding: 5px;
+}
+
+.todo {
+  align-items: center;
+  background: #F5F5F5;
+  border-radius: 3px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  padding: 3px 10px;
+
+}
+
+.todo input {
+  margin-right: 10px;
+}
+
