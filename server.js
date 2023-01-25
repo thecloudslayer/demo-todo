@@ -13,7 +13,7 @@ app.get('/todos', (req, res) => { //Line 9
 
   let client = Aerospike.client({
     hosts: [
-      {addr: "aerospike2", port: 3000},
+      {addr: "localhost", port: 3000},
 
     ],
     log: {
@@ -47,7 +47,7 @@ app.get('/todos', (req, res) => { //Line 9
 
   }
 
- test();
+  test();
 
 
 })
@@ -60,7 +60,7 @@ app.post('/addtodo', (req, res) => {
   let load = req.body
   console.log("load",load)
 
-let client = Aerospike.client({
+  let client = Aerospike.client({
     hosts: [
       { addr: "localhost", port:3000 },
 
@@ -136,7 +136,7 @@ app.put('/updatetodo', (req, res) => {
       const key = new Aerospike.Key('test', 'todos', 'taylorgraham')
       let record = await client.get(key)
 
-    record.bins.json.todos[newIndex] = newLoad
+      record.bins.json.todos[newIndex] = newLoad
 
 
 
