@@ -65,6 +65,17 @@ callBackendAPI = async () => {
   return body.express;
 };
 
+let callSetUpAPI;
+callSetUpAPI = async () => {
+  const response = await fetch("/setup");
+  const body = await response.json();
+  console.log("body", body);
+  if (response.status !== 200) {
+    throw Error(body.message);
+  }
+  return body.express;
+};
+
 function App() {
   const [todos, setTodos] = useState([
     {
@@ -74,20 +85,20 @@ function App() {
   ]);
 
   useEffect(() => {
+
+    const result1 = callSetUpAPI()
+
+
     const fetchData = async () => {
+      await callSetUpAPI();
       const data = await callBackendAPI();
       let fetched = JSON.parse(data);
 
       setTodos(fetched);
     };
 
-    const result = fetchData()
-      // make sure to catch any error
-      .catch(console.error);
+    fetchData();
 
-    // what will be logged to the console?
-    console.log("result", result);
-    console.log("todos", todos);
   }, []);
 
   const addTodo = (text) => {

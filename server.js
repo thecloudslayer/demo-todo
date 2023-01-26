@@ -212,3 +212,60 @@ app.put('/deletetodo', (req, res) => {
 
 
 });
+
+app.get('/setup', (req, res) => {
+
+
+  let client = Aerospike.client({
+    hosts: [
+      { addr: "localhost", port:3000 },
+
+
+    ],
+    log: {
+      level: Aerospike.log.INFO
+    }
+  })
+
+
+  client.connect(async function (error) {
+    if (error) {
+      // handle failure
+      console.log('Connection to Aerospike cluster failed!')
+    } else {
+      // handle success
+
+      const key = new Aerospike.Key('test', 'todos', 'taylorgraham')
+      let record = await client.exists(key)
+
+    if(record == false) {
+      console.log("record does not exist")
+        let json = {"json": {"todos": [{"isComplete": false, "text": "to late"}]}}
+
+      client.put(key,json, function (error) {
+        if (error) {
+          console.log('error: %s', error.message)
+        } else {
+          console.log('Record written to database successfully.')
+          res.send({express: "record created"})
+
+        }
+        client.close()
+      } )
+    }else{
+      console.log("record exists")
+      res.send(JSON.stringify({express: "record exists"})); //Line 10
+    }
+
+
+
+    }
+
+  })
+
+
+
+
+
+
+});
